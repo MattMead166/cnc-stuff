@@ -1,0 +1,327 @@
+{
+  "tool": {
+    "tool-enable-mode": "disabled",
+    "tool-direction-mode": "disabled",
+    "tool-reversed": false,
+    "tool-type": "Huanyang VFD",
+    "min-spin": 0,
+    "max-spin": 24000
+  },
+  "motors": [
+    {
+      "max-jerk": 5000,
+      "stall-current": 1,
+      "travel-per-rev": 10,
+      "step-angle": 1.8,
+      "stall-sample-time": 200,
+      "zero-backoff": 1.5,
+      "microsteps": 16,
+      "homing-mode": "stall-min",
+      "latch-backoff": 5,
+      "latch-velocity": 0.1,
+      "min-switch": "disabled",
+      "reverse": false,
+      "stall-microstep": 8,
+      "search-velocity": 1.688,
+      "axis": "X",
+      "idle-current": 1,
+      "enabled": true,
+      "max-soft-limit": 815,
+      "max-switch": "disabled",
+      "drive-current": 2.8,
+      "max-velocity": 15,
+      "min-soft-limit": 0,
+      "max-accel": 750,
+      "stall-volts": 2
+    },
+    {
+      "max-jerk": 5000,
+      "stall-current": 1,
+      "travel-per-rev": 10,
+      "step-angle": 1.8,
+      "stall-sample-time": 200,
+      "zero-backoff": 1.5,
+      "microsteps": 16,
+      "homing-mode": "stall-min",
+      "latch-backoff": 5,
+      "latch-velocity": 0.1,
+      "min-switch": "disabled",
+      "reverse": true,
+      "stall-microstep": 8,
+      "search-velocity": 1.688,
+      "axis": "Y",
+      "idle-current": 1,
+      "enabled": true,
+      "max-soft-limit": 816,
+      "max-switch": "disabled",
+      "drive-current": 2.8,
+      "max-velocity": 15,
+      "min-soft-limit": 0,
+      "max-accel": 750,
+      "stall-volts": 2
+    },
+    {
+      "max-jerk": 1000,
+      "stall-current": 1,
+      "travel-per-rev": 10,
+      "step-angle": 1.8,
+      "stall-sample-time": 200,
+      "zero-backoff": 1.5,
+      "microsteps": 16,
+      "homing-mode": "stall-min",
+      "latch-backoff": 5,
+      "latch-velocity": 0.1,
+      "min-switch": "disabled",
+      "reverse": true,
+      "stall-microstep": 8,
+      "search-velocity": 1.688,
+      "axis": "Y",
+      "idle-current": 1,
+      "enabled": true,
+      "max-soft-limit": 816,
+      "max-switch": "disabled",
+      "drive-current": 2.8,
+      "max-velocity": 10,
+      "min-soft-limit": 0,
+      "max-accel": 750,
+      "stall-volts": 2
+    },
+    {
+      "max-jerk": 1000,
+      "stall-current": 1,
+      "travel-per-rev": 4,
+      "step-angle": 1.8,
+      "stall-sample-time": 200,
+      "zero-backoff": 1,
+      "microsteps": 16,
+      "homing-mode": "stall-max",
+      "latch-backoff": 5,
+      "latch-velocity": 0.1,
+      "min-switch": "disabled",
+      "reverse": true,
+      "stall-microstep": 8,
+      "search-velocity": 0.675,
+      "axis": "Z",
+      "idle-current": 1,
+      "enabled": true,
+      "max-soft-limit": 0,
+      "max-switch": "disabled",
+      "drive-current": 2.8,
+      "max-velocity": 3,
+      "min-soft-limit": -115,
+      "max-accel": 750,
+      "stall-volts": 2
+    }
+  ],
+  "switches": {
+    "estop": "disabled",
+    "switch-debounce": 5,
+    "probe": "normally-open",
+    "switch-lockout": 250
+  },
+  "pwm-spindle": {
+    "dynamic-power": true,
+    "pwm-min-duty": 1,
+    "pwm-inverted": false,
+    "rapid-auto-off": true,
+    "pwm-max-duty": 99.99,
+    "pwm-freq": 1000
+  },
+  "probe": {
+    "probe-fast-seek": 75,
+    "probe-slow-seek": 25,
+    "probe-zdim": 15,
+    "probe-xdim": 40,
+    "probe-ydim": 40,
+    "probe-diameter": 3.17
+  },
+  "modbus-spindle": {
+    "baud": "9600",
+    "multi-write": false,
+    "bus-id": "1",
+    "regs": [
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      },
+      {
+        "reg-addr": 0,
+        "reg-value": 0,
+        "reg-type": "disabled"
+      }
+    ],
+    "parity": "None"
+  },
+  "outputs": {
+    "fault": "disabled",
+    "load-2": "lo-hi",
+    "load-1": "lo-hi"
+  },
+  "gcode": {
+    "program-start": "(Runs at program start)\nG90 (Absolute distance mode)\nG17 (Select XY plane)\n",
+    "program-end": "(Runs on M2, program end)",
+    "tool-change": "(Runs on M6, tool change)\nM70\nG21\nS0\nM9\nF100\nG53 G0 Z0\nG53 G0 X0 Y0\nM0 M6 (MSG, Change tool and attach probe)\nF500\nG53 G1 Z-60 F800\nF100\n(probe to minimum z soft limit, which is -10)\nG38.2 Z-10\nG92 Z10.956\nG53 G0 Z0\nM0 (MSG, Remove probe, start spindle)\nM72"
+  },
+  "admin": {
+    "auto-check-upgrade": true
+  },
+  "version": "1.0.9",
+  "full_version": "1.0.9b0",
+  "settings": {
+    "probing-prompts": false,
+    "junction-accel": 200000,
+    "units": "METRIC",
+    "max-deviation": 0.05
+  }
+}
