@@ -1057,21 +1057,21 @@ def PostProcessSetup(fname, setup, setupFolder, docSettings):
                 toolCur = match["T"]
                 if (toolCur != None):
                     toolCur = int(toolCur)
-                    if not fFirst:
+                    #if not fFirst:
                         # Is this a tool change?
-                        if toolCur != toolLast:
-                            if len(toolChange) != 0:
-                                if fToolChangeNum:
-                                    # Add line number to tool change
-                                    for code in toolChange:
-                                        fileBody.write("N" + str(lineNum) + " " + code)
-                                        lineNum += constLineNumInc
-                                else:
-                                    fileBody.write(toolChange)
+                    #if toolCur != toolLast:
+                    if len(toolChange) != 0:
+                        if fToolChangeNum:
+                            # Add line number to tool change
+                            for code in toolChange:
+                                fileBody.write("N" + str(lineNum) + " " + code)
+                                lineNum += constLineNumInc
                         else:
-                            fBody = True
-                            line = fileOp.readline()
-                            continue    # don't output tool line
+                            fileBody.write(toolChange)                        
+                    else:
+                        fBody = True 
+                        line = fileOp.readline()
+                        continue    # don't output tool line
                     toolLast = toolCur
                     break
 
@@ -1215,6 +1215,15 @@ def PostProcessSetup(fname, setup, setupFolder, docSettings):
                     fileBody.write("N" + str(lineNum) + " ")
                     lineNum += constLineNumInc
                 fileBody.write(line)
+
+                # Add Extra G-Code if its Tool Change 
+                match = regBody.match(line).groupdict()
+                line = match["line"]        # filter off line number if present
+                fNum = match["N"] != None
+                toolCur = match["T"]
+                if (toolCur != None):
+                     fileBody.write("G90 G94" + '\n')
+
                 lineFull = fileOp.readline()
                 if len(lineFull) == 0:
                     break
