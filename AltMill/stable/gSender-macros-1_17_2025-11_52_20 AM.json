@@ -1,0 +1,50 @@
+[
+ {
+  "name": "Measure Tool",
+  "content": "G65 P231"
+ },
+ {
+  "name": "Unload Tool",
+  "content": "M6T98"
+ },
+ {
+  "name": "Goto Pocket 1",
+  "content": "M8\nG4 P0.100\nM9\nG53 G90 G0 Z0\nG53 G90 G0 X#<_rc_pocket_one_x> y#<_rc_pocket_one_y> "
+ },
+ {
+  "name": "ATC Full Test",
+  "content": "M6T1\nM6T2\nM6T3\nM6T4\nM6T5\nM6T6\nM6T7\nG53 G90 G0 X10 Y-10"
+ },
+ {
+  "name": "Retract Dust Boot",
+  "content": "M8\nM9"
+ },
+ {
+  "name": "Home Including AutoDustBoot",
+  "content": "M8\nM9\n$H"
+ },
+ {
+  "name": "Park",
+  "content": "M8\nG4 P0.100\nM9\nG53 G90 G0 Z0\nG53 G90 G0 X#<_rc_pocket_one_x> y#<_rc_pocket_one_y> \nG53 G90 G0 Z#<_rc_zone_one_z>"
+ },
+ {
+  "name": "Manual ToolChange",
+  "content": "M6T98\nM61Q0\nG53 G90 G0 X400 Y-600"
+ },
+ {
+  "name": "Homing Testing",
+  "content": "M8\nG4 P0.100\nM9"
+ },
+ {
+  "name": "Quick Tool Change",
+  "content": "M6T3\nG90 G0 X0 Y0\nG90 G0 Z0"
+ },
+ {
+  "name": "Testing Delay",
+  "content": "M8\nG4 P0.100\nM9"
+ },
+ {
+  "name": "Go to Zone 1",
+  "content": "M8\nG4 P0.100\nM9\nG53 G90 G0 Z0\nG53 G90 G0 X#<_rc_pocket_one_x> y#<_rc_pocket_one_y> \nG53 G90 G0 Z#<_rc_zone_one_z>"
+ }
+]
