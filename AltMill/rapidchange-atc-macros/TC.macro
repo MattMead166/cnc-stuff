@@ -110,6 +110,7 @@ o500 elseif [#<_rc_cover_mode> EQ 2]
 o500 endif
 ; *************** END SETUP ****************
 
+
 ; ************** BEGIN UNLOAD **************
 ; Unload current tool
 o300 if [#<_current_tool> EQ 0]
@@ -163,6 +164,7 @@ o300 else
         G53 G0 X[#<_rc_manual_x>] Y[#<_rc_manual_y>]
         (debug, Go to manual position)
         (debug, Tool #<_current_tool> failed to unload. Please manually unload tool #<_current_tool> and cycle start to continue.)
+        M61 Q[#<_current_tool>]
         M0
       o330 else
         G53 G0 Z[#<_rc_to_load_z>]
@@ -179,10 +181,15 @@ o300 else
     G53 G0 Z[#<_rc_to_load_z>]
     (debug, Go to move to load)
     (debug, Confirm tool #<_current_tool> is unloaded and press cycle start to continue.)
-    ; M0
-  o310 endif 
+  o310 endif
+
+  ; Update current tool to zero for no tools loaded
+  M61 Q0
+
 o300 endif
 ; *************** END UNLOAD ***************
+
+
 
 ; *************** BEGIN LOAD ***************
 o400 if [#<_selected_tool> EQ 98]
@@ -364,7 +371,7 @@ o550 elseif [#<_rc_cover_mode> EQ 2]
 o550 endif
 
 ; added for AutoDustBoot
-G53 G90 G0 X690
+G91 G0 X150
 
 ; Restore units
 G[#<_rc_return_units>]

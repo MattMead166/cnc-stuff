@@ -17,11 +17,9 @@
 ; If not, see <https://www.gnu.org/licenses/>.
 ;
 
+G65P200
+
 ; ************ BEGIN VALIDATION ************
-o50 if [#1001 NE 1]
-  (debug, RapidChange settings are not initialized. Tool measure aborted.)
-  M99
-o50 endif
 
 o100 if [#<_current_tool> EQ 98]
   ; Handle tool 98, symbol for tool 0.
@@ -38,15 +36,14 @@ o100 endif
 ; ************** BEGIN SETUP ***************
 ; Turn off spindle and coolant
 M5
-(debug, Spindle and coolant turned off)
 
-; ***** ENSURE AUTODUSTBOOT IS RECTRACTED
+; ************** AUTODUSTBOOT AUTO-RETRACT ***************
 M8 
-G4 P0.100
+G4 P0.015
 M9
 G4 P0.500
-(debug, Retracting AutoDustBoot)
-; **** 
+; ************** END AUTODUSTBOOT AUTO-RETRACT ***************
+(debug, Spindle and coolant turned off)
 
 
 ; Record current units
@@ -179,11 +176,13 @@ o550 elseif [#<_rc_cover_mode> EQ 2]
   (debug, Dwell for cover)
 o550 endif
 
+; **** AUTODUSTBOOOT ***********
+G91 G0 X130
+; **** END OF AUTODUSTBOOOT *******
+
 ; Restore units
 G[#<_rc_return_units>]
 (debug, Units restored)
 (debug, Tool change complete)
-
-;(debug, Moving out from RapiChangeATC to avoid AutoDustBoot collision)
-G53 G90 G0 X690
 ; ************* END TEARDOWN ***************
+
