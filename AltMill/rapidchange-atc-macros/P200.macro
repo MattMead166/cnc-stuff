@@ -120,9 +120,9 @@
 
 
 ; Z Machine coordinate positions tool recognition.
-#<_rc_zone_one_z> = -85
+#<_rc_zone_one_z> = -87
 (debug, Tool Recognition Zone 1 Z: #<_rc_zone_one_z>)
-#<_rc_zone_two_z> = -78
+#<_rc_zone_two_z> = -82
 (debug, Tool Recognition Zone 2 Z: #<_rc_zone_two_z>)
 
 ; Tool Measurement
