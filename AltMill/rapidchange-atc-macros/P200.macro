@@ -42,7 +42,7 @@
 ; The X an Y machine coordinate positions of pocket 1.
 #<_rc_pocket_one_x> = 0
 (debug, Pocket 1 X: #<_rc_pocket_one_x>)
-#<_rc_pocket_one_y> = -875.70
+#<_rc_pocket_one_y> = -875.50
 (debug, Pocket 1 Y: #<_rc_pocket_one_y>)
 
 ; The Z machine coordinate positon of engagement.
