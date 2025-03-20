@@ -40,13 +40,13 @@
 (debug, Direction: #<_rc_direction>)
 
 ; The X an Y machine coordinate positions of pocket 1.
-#<_rc_pocket_one_x> = 805.60
+#<_rc_pocket_one_x> = 0
 (debug, Pocket 1 X: #<_rc_pocket_one_x>)
-#<_rc_pocket_one_y> = -321.00
+#<_rc_pocket_one_y> = -875.50
 (debug, Pocket 1 Y: #<_rc_pocket_one_y>)
 
 ; The Z machine coordinate positon of engagement.
-#<_rc_engage_z> = -124
+#<_rc_engage_z> = -108
 (debug, Engage Z: #<_rc_engage_z>)
 
 ; The Z machine coordinate position at which to start the spindle when loading.
@@ -83,9 +83,9 @@
 
 ; Manual Tool Change
 ; X and Y machine coordinates to move to for a manual load/unload.
-#<_rc_manual_x> = 400
+#<_rc_manual_x> = 200
 (debug, Manual X: #<_rc_manual_x>)
-#<_rc_manual_y> = -600
+#<_rc_manual_y> = -700
 (debug, Manual Y: #<_rc_manual_y>)
 
 ; Dust Cover
@@ -118,14 +118,11 @@
 #<_rc_recognize> = 1
 (debug, Tool Recognition Enabled: #<_rc_recognize>)
 
-; IR sensor input number.
-#<_rc_rec_input> = 3
-(debug, Tool Recognition Input: #<_rc_rec_input>)
 
 ; Z Machine coordinate positions tool recognition.
-#<_rc_zone_one_z> = -97.5
+#<_rc_zone_one_z> = -87
 (debug, Tool Recognition Zone 1 Z: #<_rc_zone_one_z>)
-#<_rc_zone_two_z> = -91.5
+#<_rc_zone_two_z> = -82
 (debug, Tool Recognition Zone 2 Z: #<_rc_zone_two_z>)
 
 ; Tool Measurement
@@ -153,7 +150,7 @@
 (debug, Tool Measure Retract Distance: #<_rc_retract_dist>)
 
 ; The feed rate for the initial probe.
-#<_rc_seek_feed> = 400
+#<_rc_seek_feed> = 800
 (debug, Tool Measure Seek Feed Rate: #<_rc_seek_feed>)
 
 ; The feed rate for the second probe.

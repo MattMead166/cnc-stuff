@@ -26,15 +26,22 @@ o50 if [#1001 NE 1]
   M99
 o50 endif
 
-o100 if [#<_selected_tool> LT 0]
-  (debug, Selected Tool: #<_selected_tool> is out of range. Tool change aborted. Program paused.)
+#<_tool_to_load> = #<_selected_tool>
+
+; Convert 98 to 0 
+o51 if [#<_tool_to_load> EQ 98] 
+  #<_tool_to_load> = 0
+o51 endif
+
+o100 if [#<_tool_to_load> LT 0]
+  (debug, Selected Tool: #<_tool_to_load> is out of range. Tool change aborted. Program paused.)
   M0
   M99
-o100 elseif [#<_selected_tool> EQ #<_current_tool>]
+o100 elseif [#<_tool_to_load> EQ #<_current_tool>]
   (debug, Current tool selected. Tool change bypassed.)
   M99
 o100 endif
-(debug, Tool change validated)
+(debug, Changing Tool to #<_tool_to_load>)
 ; ************* END VALIDATION *************
 
 ; ************** BEGIN SETUP ***************
@@ -110,13 +117,11 @@ o500 elseif [#<_rc_cover_mode> EQ 2]
 o500 endif
 ; *************** END SETUP ****************
 
+
 ; ************** BEGIN UNLOAD **************
 ; Unload current tool
 o300 if [#<_current_tool> EQ 0]
   ; We have tool 0. Do nothing as we are already unloaded.
-  (debug, Unloaded tool 0)
-o300 elseif [#<_current_tool> EQ 98]
-  ; We have tool 98, same as tool 0. Do nothing as we are already unloaded.
   (debug, Unloaded tool 0)
 o300 elseif [#<_current_tool> GT #<_rc_pockets>]
   ; Tool out of magazine range. Unload manually
@@ -163,6 +168,7 @@ o300 else
         G53 G0 X[#<_rc_manual_x>] Y[#<_rc_manual_y>]
         (debug, Go to manual position)
         (debug, Tool #<_current_tool> failed to unload. Please manually unload tool #<_current_tool> and cycle start to continue.)
+        M61 Q[#<_current_tool>]
         M0
       o330 else
         G53 G0 Z[#<_rc_to_load_z>]
@@ -179,21 +185,26 @@ o300 else
     G53 G0 Z[#<_rc_to_load_z>]
     (debug, Go to move to load)
     (debug, Confirm tool #<_current_tool> is unloaded and press cycle start to continue.)
-    ; M0
-  o310 endif 
+  o310 endif
+
+  ; Update current tool to zero for no tools loaded
+  M61 Q0
+
 o300 endif
 ; *************** END UNLOAD ***************
 
+
+
 ; *************** BEGIN LOAD ***************
-o400 if [#<_selected_tool> EQ 98]
-  ; We selected tool 98, symbol for tool 0.
+o400 if [#<_tool_to_load> EQ 0]
+  ; Do nothing for tool 0 (unloading only).
   ; Go to safe z.
   G53 G0 Z[#<_rc_safe_z>]
   (debug, Moved to safe clearance)
-o400 elseif [#<_selected_tool> LE #<_rc_pockets>]
+o400 elseif [#<_tool_to_load> LE #<_rc_pockets>]
   ; We have a tool with a pocket
   G53 G0 X[#<_rc_x_load>] Y[#<_rc_y_load>]
-  (debug, Move to pocket #<_selected_tool>)
+  (debug, Move to pocket #<_tool_to_load>)
   G53 G0 Z[#<_rc_engage_z> + #<_rc_z_spin_off>]
   (debug, Move to spin start)
   G53 G1 Z[#<_rc_load_spin_z>] F[#<_rc_engage_feed>]
@@ -225,7 +236,7 @@ o400 elseif [#<_selected_tool> LE #<_rc_pockets>]
       G53 G0 Z[#<_rc_safe_z>]
       (debug, Moved to safe clearance)
       G53 G0 X[#<_rc_manual_x>] Y[#<_rc_manual_y>]
-      (debug, Tool #<_selected_tool> failed to load zone 1. Manually load tool #<_selected_tool> and cycle start to continue.)
+      (debug, Tool #<_tool_to_load> failed to load zone 1. Manually load tool #<_tool_to_load> and cycle start to continue.)
       M0
       (debug, Manually loaded tool after failure)
     o430 else
@@ -238,7 +249,7 @@ o400 elseif [#<_selected_tool> LE #<_rc_pockets>]
         G53 G0 Z[#<_rc_safe_z>]
         (debug, Moved to safe clearance)
         G53 G0 X[#<_rc_manual_x>] Y[#<_rc_manual_y>]
-        (debug, Tool #<_selected_tool> failed to load Zone 2. Manually load tool #<_selected_tool> and cycle start to continue.)
+        (debug, Tool #<_tool_to_load> failed to load Zone 2. Manually load tool #<_tool_to_load> and cycle start to continue.)
         M0
         (debug, Manually loaded tool after failure)
       o440 else
@@ -250,26 +261,25 @@ o400 elseif [#<_selected_tool> LE #<_rc_pockets>]
     (debug, Tool recognition disabled)
     G53 G0 Z[#<_rc_to_measure_z>]
     (debug, Move to measure z)
-    (debug, Confirm tool #<_selected_tool> is loaded and press cycle start to continue.)
+    (debug, Confirm tool #<_tool_to_load> is loaded and press cycle start to continue.)
     ; M0
   o420 endif
 o400 else
   ; Tool out of magazine range. Load manually
   G53 G0 X[#<_rc_manual_x>] Y[#<_rc_manual_y>]
-  (debug, Tool #<_selected_tool> is out of magazine range. Manually load tool #<_selected_tool> and cycle start to continue.)
+  (debug, Tool #<_tool_to_load> is out of magazine range. Manually load tool #<_tool_to_load> and cycle start to continue.)
   M0
   (debug, Loaded tool out of range)
 o400 endif
 
 ; Update the current tool.
-M61 Q[#<_selected_tool>]
-G4 P0
-(debug, Loaded tool #<_current_tool>)
+M61 Q[#<_tool_to_load>]
+(debug, Loaded tool #<_tool_to_load>)
 ; *************** END LOAD *****************
 
 ; ************* BEGIN MEASURE **************
-o600 if [#<_current_tool> EQ 98]
-  ; We selected tool 98, same as tool 0. Do nothing.
+o600 if [#<_current_tool> EQ 0]
+  ; tool 0. Do nothing.
 o600 elseif [#<_rc_measure> EQ 1]
   ; Tool measure is enabled and we have a tool.
   ; Remove any G43.1 Z offset
@@ -364,7 +374,7 @@ o550 elseif [#<_rc_cover_mode> EQ 2]
 o550 endif
 
 ; added for AutoDustBoot
-G53 G90 G0 X690
+G91 G0 X150
 
 ; Restore units
 G[#<_rc_return_units>]
