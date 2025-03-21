@@ -85,7 +85,7 @@
 ; X and Y machine coordinates to move to for a manual load/unload.
 #<_rc_manual_x> = 200
 (debug, Manual X: #<_rc_manual_x>)
-#<_rc_manual_y> = -700
+#<_rc_manual_y> = -920
 (debug, Manual Y: #<_rc_manual_y>)
 
 ; Dust Cover
