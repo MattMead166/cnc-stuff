@@ -6,7 +6,7 @@
 
   $Revision: 43194 08c79bb5b30997ccb5fb33ab8e7c8c26981be334 $
   $Date: 2021-02-18 16:25:13 $
-  
+
   FORKID {154F7C00-6549-4c77-ADE0-79375FE5F2AA}
 */
 
@@ -327,7 +327,7 @@ function onSection() {
     (tool.number != getPreviousSection().getTool().number);
 
   var splitHere = getProperty("splitFile") == "toolpath" || (getProperty("splitFile") == "tool" && insertToolCall);
-  
+
   retracted = false; // specifies that the tool has been retracted to the safe plane
   var newWorkOffset = isFirstSection() ||
     (getPreviousSection().workOffset != currentSection.workOffset) ||
@@ -355,9 +355,9 @@ function onSection() {
   if (splitHere) {
     if (!isFirstSection()) {
       setCoolant(COOLANT_OFF);
-    
+
       writeRetract(X, Y);
-    
+
       onImpliedCommand(COMMAND_END);
       onCommand(COMMAND_STOP_SPINDLE);
       writeBlock(mFormat.format(30)); // stop program, spindle stop, coolant off
@@ -371,7 +371,7 @@ function onSection() {
       var comment;
       if (hasParameter("operation-comment")) {
         comment = getParameter("operation-comment");
-        
+
       } else {
         comment = getCurrentSectionId();
       }
@@ -388,9 +388,9 @@ function onSection() {
     // }
     // subprogram = _subprogram;
     subprograms.push(subprogram);
-    
+
     var path = FileSystem.getCombinedPath(FileSystem.getFolderPath(getOutputPath()), String(subprogram).replace(/[<>:"/\\|?*]/g, "") + "." + extension);
-    
+
     writeComment(localize("Load tool number " + tool.number + " and subprogram " + subprogram));
 
     redirectToFile(path);
@@ -416,7 +416,7 @@ function onSection() {
     }
 
   }
-  
+
   if (hasParameter("operation-comment")) {
     var comment = getParameter("operation-comment");
     if (comment) {
@@ -459,7 +459,7 @@ function onSection() {
       }
     }
   }
-  
+
   if (insertToolCall ||
       isFirstSection() ||
       (rpmFormat.areDifferent(spindleSpeed, sOutput.getCurrent())) ||
@@ -646,7 +646,7 @@ function forceCircular(plane) {
 
 function onCircular(clockwise, cx, cy, cz, x, y, z, feed) {
   // one of X/Y and I/J are required and likewise
-  
+
   if (pendingRadiusCompensation >= 0) {
     error(localize("Radius compensation cannot be activated/deactivated for a circular move."));
     return;
@@ -894,6 +894,10 @@ function getCoolantCodes(coolant) {
 }
 
 function onClose() {
+
+
+
+
   setCoolant(COOLANT_OFF);
 
   writeRetract(Z);
@@ -902,12 +906,17 @@ function onClose() {
 
   onImpliedCommand(COMMAND_END);
   onCommand(COMMAND_STOP_SPINDLE);
-  
+
   // writeBlock(mFormat.format(30)); // stop program, spindle stop, coolant off
   writeBlock(mFormat.format(2)); // stop program, spindle stop, coolant off
   if (isRedirecting()) {
     closeRedirection();
   }
+
+  // writeBlock("G53 G90 G0 Z-5");
+  // writeBlock("G53 G90 G0 X1200 Y-5");
+
+
 }
 
 function setProperty(property, value) {
