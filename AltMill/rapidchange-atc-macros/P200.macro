@@ -145,7 +145,7 @@
 (debug, Tool Measure Seek Distance: #<_rc_seek_dist>)
 
 ; The distance to retract after the initial probe trigger.
-#<_rc_retract_dist> = 2
+#<_rc_retract_dist> = 5
 
 (debug, Tool Measure Retract Distance: #<_rc_retract_dist>)
 
@@ -154,7 +154,7 @@
 (debug, Tool Measure Seek Feed Rate: #<_rc_seek_feed>)
 
 ; The feed rate for the second probe.
-#<_rc_set_feed> = 30
+#<_rc_set_feed> = 5
 (debug, Tool Measure Set Feed Rate: #<_rc_set_feed>)
 
 ; The optional reference position for TLO. This may remain at it's default of 0 or be customized.
@@ -184,3 +184,9 @@ o100 endif
 (debug, Flag Set: #1001)
 (debug, RapidChange ATC Configuration Loaded)
 ; ******** END CALCULATED SETTINGS ***********
+
+
+; Automatically measure tool since offset is not persistent
+o200 if [#<_tool_offset> EQ 0]
+  G65 P231
+o200 endif

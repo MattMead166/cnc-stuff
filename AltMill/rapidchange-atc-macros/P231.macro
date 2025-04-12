@@ -17,8 +17,6 @@
 ; If not, see <https://www.gnu.org/licenses/>.
 ;
 
-G65P200
-
 ; ************ BEGIN VALIDATION ************
 
 o100 if [#<_current_tool> EQ 98]
