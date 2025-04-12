@@ -109,7 +109,7 @@ class SettingsManager:
                     return docSettings
             except Exception:
                 pass
-            
+
         # Document does not have valid settings, get defaults
         if not self.default:
             # Haven't read the settings file yet
@@ -128,7 +128,7 @@ class SettingsManager:
             finally:
                 if file:
                     file.close
-        
+
         if not docSettings:
             docSettings = dict(self.default)
         else:
@@ -153,7 +153,7 @@ class SettingsManager:
         if self.fMustSave:
             self.SaveDefault(docSettings)
         docAttr.add(constAttrGroup, constAttrName, json.dumps(docSettings))
-            
+
     def UpdateSettings(self, src, dst):
         if "homeEndsOp" in dst:
             if dst["homeEndsOp"] and not ("endCodes" in dst):
@@ -182,16 +182,16 @@ def InitAddIn():
         # Create a button command definition.
         cmdDefs = ui.commandDefinitions
         cmdDef = cmdDefs.addButtonDefinition(constCmdDefId, constCmdName, toolTip, "resources/Command")
-        
+
         # Connect to the commandCreated event.
         commandEventHandler = CommandEventHandler()
         cmdDef.commandCreated.add(commandEventHandler)
         handlers.append(commandEventHandler)
-        
+
         # Get the Actions panel in the Manufacture workspace.
         workSpace = ui.workspaces.itemById(constCAMWorkspaceId)
         addInsPanel = workSpace.toolbarPanels.itemById(constCAMActionsPanelId)
-        
+
         # Add the button right after the Post Process command.
         cmdControl = addInsPanel.controls.addCommand(cmdDef, constPostProcessControlId, False)
         cmdControl.isPromotedByDefault = True
@@ -239,7 +239,7 @@ class CommandEventHandler(adsk.core.CommandCreatedEventHandler):
                 for setup in product.setups:
                     if setup.isSelected:
                         selectedSetups.append(setup)
-                        
+
             # Add inputs that will appear in a dialog
             inputs = cmd.commandInputs
 
@@ -258,10 +258,10 @@ class CommandEventHandler(adsk.core.CommandCreatedEventHandler):
             inputGroup.isExpanded = docSettings["groupOutput"]
 
             # check box to use only selected setups
-            input = inputs.addBoolValueInput("onlySelected", 
-                                             "Only selected setups", 
-                                             True, 
-                                             "", 
+            input = inputs.addBoolValueInput("onlySelected",
+                                             "Only selected setups",
+                                             True,
+                                             "",
                                              docSettings["onlySelected"])
             input.tooltip = "Only Process Selected Setups"
             input.tooltipDescription = (
@@ -272,10 +272,10 @@ class CommandEventHandler(adsk.core.CommandCreatedEventHandler):
             input.isEnabled = len(selectedSetups) != 0
 
             # check box to delete existing files
-            input = inputs.addBoolValueInput("delFiles", 
-                                             "Delete existing files", 
-                                             True, 
-                                             "", 
+            input = inputs.addBoolValueInput("delFiles",
+                                             "Delete existing files",
+                                             True,
+                                             "",
                                              docSettings["delFiles"])
             input.tooltip = "Delete Existing Files in Each Folder"
             input.tooltipDescription = (
@@ -293,10 +293,10 @@ class CommandEventHandler(adsk.core.CommandCreatedEventHandler):
                 "folder, for example, it will not be deleted.</p>")
 
             # check box to delete entire output folder
-            input = inputs.addBoolValueInput("delFolder", 
-                                             "Delete output folder", 
-                                             True, 
-                                             "", 
+            input = inputs.addBoolValueInput("delFolder",
+                                             "Delete output folder",
+                                             True,
+                                             "",
                                              docSettings["delFolder"] and docSettings["delFiles"])
             input.isEnabled = docSettings["delFiles"] # enable only if delete existing files
             input.tooltip = "Delete Entire Output Folder First"
@@ -312,10 +312,10 @@ class CommandEventHandler(adsk.core.CommandCreatedEventHandler):
                 "a vast number of files.</p>")
 
             # check box to prepend sequence numbers
-            input = inputs.addBoolValueInput("sequence", 
-                                             "Prepend sequence number", 
-                                             True, 
-                                             "", 
+            input = inputs.addBoolValueInput("sequence",
+                                             "Prepend sequence number",
+                                             True,
+                                             "",
                                              docSettings["sequence"])
             input.tooltip = "Add Sequence Numbers to Name"
             input.tooltipDescription = (
@@ -324,10 +324,10 @@ class CommandEventHandler(adsk.core.CommandCreatedEventHandler):
                 "Each folder has its own sequence numbers starting with 1.")
 
             # check box to select 2-digit sequence numbers
-            input = inputs.addBoolValueInput("twoDigits", 
-                                             "Use 2-digit numbers", 
-                                             True, 
-                                             "", 
+            input = inputs.addBoolValueInput("twoDigits",
+                                             "Use 2-digit numbers",
+                                             True,
+                                             "",
                                              docSettings["twoDigits"])
             input.isEnabled = docSettings["sequence"] # enable only if using sequence numbers
             input.tooltip = "Use 2-Digit Sequence Numbers"
@@ -336,7 +336,7 @@ class CommandEventHandler(adsk.core.CommandCreatedEventHandler):
                 '"01" to "09". This could be useful for formatting or sorting.')
 
             # select units
-            input = inputs.addDropDownCommandInput("units", 
+            input = inputs.addDropDownCommandInput("units",
                                                    "Post output units",
                                                    adsk.core.DropDownStyles.TextListDropDownStyle)
             # Document Unit = 0
@@ -372,8 +372,8 @@ class CommandEventHandler(adsk.core.CommandCreatedEventHandler):
                 "in a setup and this options is not selected.")
 
             # text box as a label for tool change command
-            input = inputGroup.children.addTextBoxCommandInput("toolLabel", 
-                                                               "", 
+            input = inputGroup.children.addTextBoxCommandInput("toolLabel",
+                                                               "",
                                                                "G-code for tool change:",
                                                                1,
                                                                True)
@@ -398,10 +398,10 @@ class CommandEventHandler(adsk.core.CommandCreatedEventHandler):
             )
             label.tooltip = input.tooltip
             label.tooltipDescription = input.tooltipDescription
-           
+
             # text box as a label for operation end commands
-            input = inputGroup.children.addTextBoxCommandInput("endLabel", 
-                                                               "", 
+            input = inputGroup.children.addTextBoxCommandInput("endLabel",
+                                                               "",
                                                                "G-codes that mark ending sequence:",
                                                                1,
                                                                True)
@@ -426,7 +426,7 @@ class CommandEventHandler(adsk.core.CommandCreatedEventHandler):
             )
             label.tooltip = input.tooltip
             label.tooltipDescription = input.tooltipDescription
-           
+
             # check box to enable restoring rapid moves
             input = inputGroup.children.addBoolValueInput("fastZ",
                                                           "Restore rapid moves",
@@ -444,25 +444,25 @@ class CommandEventHandler(adsk.core.CommandCreatedEventHandler):
                 "<p><b>WARNING!<b> This option should be used with caution. "
                 "Review the G-code to verify it is correct. Comments have been "
                 "added to indicate the changes.")
-           
+
             inputGroup.isExpanded = docSettings["groupPersonal"]
 
             # Advanced -- retry settings
             inputGroup = inputs.addGroupCommandInput("groupAdvanced", "Advanced")
             # Time delay
-            input = inputGroup.children.addFloatSpinnerCommandInput("initialDelay", 
+            input = inputGroup.children.addFloatSpinnerCommandInput("initialDelay",
                 "Initial time allowance", "s", 0.1, 1.0, 0.1, docSettings["initialDelay"])
             input.tooltip = "Initial Time to Post Process an Operation"
             input.tooltipDescription = (
                 "Initial delay to wait for post processor. Doubled for each retry.")
             # Retry count
-            input = inputGroup.children.addIntegerSpinnerCommandInput("postRetries", 
+            input = inputGroup.children.addIntegerSpinnerCommandInput("postRetries",
                 "Number of retries", 1, 9, 1, docSettings["postRetries"])
             input.tooltip = "Number of Retries"
             input.tooltipDescription = (
                 "Retries if post processing failed. Time delay is doubled each retry.")
             inputGroup.isExpanded = docSettings["groupAdvanced"]
-            
+
             # post processor
             inputGroup = inputs.addGroupCommandInput("groupPost", "Post Processor")
             input = inputGroup.children.addStringValueInput("post", "", docSettings["post"])
@@ -470,7 +470,7 @@ class CommandEventHandler(adsk.core.CommandCreatedEventHandler):
             input.tooltip = "Post Processor"
             input.tooltipDescription = (
                 "Full path name of the post processor (.cps file).")
-            
+
             # Browse for post processor
             input = inputGroup.children.addBoolValueInput("browsePost", "Browse", False)
             input.resourceFolder = "resources/Browse"
@@ -492,7 +492,7 @@ class CommandEventHandler(adsk.core.CommandCreatedEventHandler):
             # File name extension
             input = inputGroup.children.addStringValueInput("fileExt", "Output file extension", docSettings["fileExt"])
             input.tooltip = "Output File Extension"
-            
+
             # button to save default settings
             input = inputs.addBoolValueInput("save", "Save as default", False)
             input.resourceFolder = "resources/Save"
@@ -543,7 +543,7 @@ class CommandInputChangedHandler(adsk.core.InputChangedEventHandler):
             input = eventArgs.input
             if input.id == "save":
                 settingsMgr.SaveDefault(self.docSettings)
-                
+
             elif input.id == "browsePost":
                 dialog = ui.createFileDialog()
                 post = self.docSettings["post"]
@@ -659,14 +659,14 @@ def stop(context):
         cmdDef = ui.commandDefinitions.itemById(constCmdDefId)
         if cmdDef:
             cmdDef.deleteMe()
-            
+
         addinsPanel = ui.allToolbarPanels.itemById(constCAMActionsPanelId)
         cmdControl = addinsPanel.controls.itemById(constCmdDefId)
         if cmdControl:
             cmdControl.deleteMe()
     except:
         if ui:
-            ui.messageBox('Failed:\n{}'.format(traceback.format_exc()))	
+            ui.messageBox('Failed:\n{}'.format(traceback.format_exc()))
 
 
 def PerformPostProcess(docSettings, setups):
@@ -711,7 +711,7 @@ def PerformPostProcess(docSettings, setups):
                             "the correct folder. If you want the folder deleted, you must "
                             "do it manually."
                             ).format(strMsg)
-                        res = ui.messageBox(strMsg, 
+                        res = ui.messageBox(strMsg,
                                             constCmdName,
                                             adsk.core.MessageBoxButtonTypes.OKCancelButtonType,
                                             adsk.core.MessageBoxIconTypes.WarningIconType)
@@ -730,13 +730,13 @@ def PerformPostProcess(docSettings, setups):
                         time.sleep(.1)
 
                 if False and not cam.checkAllToolpaths():   # checkAllToolpaths() always throws exception
-                    res = ui.messageBox("Some toolpaths are not valid. If you continue, affected Setups will be skipped", 
+                    res = ui.messageBox("Some toolpaths are not valid. If you continue, affected Setups will be skipped",
                                         constCmdName,
                                         adsk.core.MessageBoxButtonTypes.OKCancelButtonType,
                                         adsk.core.MessageBoxIconTypes.WarningIconType)
                     if res == adsk.core.DialogResults.DialogCancel:
                         return  # abort!
-                
+
                 if docSettings["delFolder"]:
                     try:
                         shutil.rmtree(outputFolder, True)
@@ -764,7 +764,7 @@ def PerformPostProcess(docSettings, setups):
                         while i < cnt:
                             setupFolder += "/" + nameList[i].strip()
                             i += 1
-                    
+
                         # keep a separate sequence number for each folder
                         if setupFolder in seqDict:
                             seqDict[setupFolder] += 1
@@ -809,7 +809,7 @@ def PerformPostProcess(docSettings, setups):
                         else:
                             cntSkipped += 1
                             lstSkipped += "\nFailed on setup " + setup.name + ": " + status
-                         
+
                     cntSetups += 1
                     progress.message = progressMsg.format(cntFiles)
                     progress.progressValue = cntSetups
@@ -818,14 +818,14 @@ def PerformPostProcess(docSettings, setups):
 
         # done with setups, report results
         if cntSkipped != 0:
-            ui.messageBox("{} files were written. {} Setups were skipped due to error:{}".format(cntFiles, cntSkipped, lstSkipped), 
-                constCmdName, 
+            ui.messageBox("{} files were written. {} Setups were skipped due to error:{}".format(cntFiles, cntSkipped, lstSkipped),
+                constCmdName,
                 adsk.core.MessageBoxButtonTypes.OKButtonType,
                 adsk.core.MessageBoxIconTypes.WarningIconType)
-            
+
         elif cntFiles == 0:
-            ui.messageBox('No CAM operations posted', 
-                constCmdName, 
+            ui.messageBox('No CAM operations posted',
+                constCmdName,
                 adsk.core.MessageBoxButtonTypes.OKButtonType,
                 adsk.core.MessageBoxIconTypes.WarningIconType)
 
@@ -855,9 +855,9 @@ def PostProcessSetup(fname, setup, setupFolder, docSettings):
         if docSettings["splitSetup"]:
             opName = constOpTmpFile
             opFolder = tempfile.gettempdir()
-        postInput = adsk.cam.PostProcessInput.create(opName, 
-                                                    docSettings["post"], 
-                                                    opFolder, 
+        postInput = adsk.cam.PostProcessInput.create(opName,
+                                                    docSettings["post"],
+                                                    opFolder,
                                                     docSettings["units"])
         postInput.isOpenInEditor = False
 
@@ -991,7 +991,7 @@ def PostProcessSetup(fname, setup, setupFolder, docSettings):
                                     "dialog.".format(ext, fileExt))
                             break
                     return "Unable to open " + opPath
-            
+
             # Parse the gcode. We expect a header like this:
             #
             # % <optional>
@@ -1056,25 +1056,23 @@ def PostProcessSetup(fname, setup, setupFolder, docSettings):
                     break
                 toolCur = match["T"]
                 if (toolCur != None):
-                    toolCur = int(toolCur)
-                    #if not fFirst:
-                        # Is this a tool change?
-                    #if toolCur != toolLast:
                     if len(toolChange) != 0:
-                        if fToolChangeNum:
+                        processor = post = docSettings["post"].lower();
+                        if "masso-rapidchangeatc" in processor:
+                            fileBody.write("N" + str(lineNum) + " M98 P63" + toolCur)
+                        elif "masso" in processor:
+                            fileBody.write("N" + str(lineNum) + " " + line.replace('\n', ''))
+                        elif "grbl" in processor:
+                            fileBody.write("M6 T" + toolCur)
                             # Add line number to tool change
-                            for code in toolChange:
-                                fileBody.write("N" + str(lineNum) + " " + code)
-                                lineNum += constLineNumInc
                         else:
-                            fileBody.write(toolChange)                        
+                            fileBody.write("M6 T" + toolCur)
                     else:
-                        fBody = True 
+                        fBody = True
                         line = fileOp.readline()
                         continue    # don't output tool line
-                    toolLast = toolCur
+                    toolLast = int(toolCur)
                     break
-
                 if fFirst or line[0] == "(":
                     if (fNum):
                         fileBody.write("N" + str(lineNum) + " ")
@@ -1189,7 +1187,7 @@ def PostProcessSetup(fname, setup, setupFolder, docSettings):
                                             line = constFeedZgcode.format(Zcur, feedCur, line[:-1])
                                             fNeedFeed = False
                                             Gcode = 1
-                                            
+
                                     elif len(XYcur) != 0 and Zcur < Zfeed:
                                         # No Z move, below feed height - back to G1
                                         line = constFeedXYgcode.format(XYcur, feedCur, line[:-1])
@@ -1211,18 +1209,20 @@ def PostProcessSetup(fname, setup, setupFolder, docSettings):
                             fFastZ = False # Just skip changes
 
                 # copy line to output
-                if (fNum):
-                    fileBody.write("N" + str(lineNum) + " ")
-                    lineNum += constLineNumInc
-                fileBody.write(line)
 
-                # Add Extra G-Code if its Tool Change 
+
+                 # Add Extra G-Code if its Tool Change
                 match = regBody.match(line).groupdict()
                 line = match["line"]        # filter off line number if present
                 fNum = match["N"] != None
                 toolCur = match["T"]
-                if (toolCur != None):
-                     fileBody.write("G90 G94" + '\n')
+                if (toolCur == None):
+                    if (fNum):
+                        fileBody.write("N" + str(lineNum) + " ")
+                        lineNum += constLineNumInc
+                    fileBody.write(line)
+                else:
+                    fileBody.write('\n')
 
                 lineFull = fileOp.readline()
                 if len(lineFull) == 0:
