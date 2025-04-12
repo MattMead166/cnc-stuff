@@ -765,9 +765,13 @@ function onClose() {
   if (currentSection.isMultiAxis()) {
     onCommand(COMMAND_LOCK_MULTI_AXIS);
   }
-  if (getSetting("retract.homeXY.onProgramEnd", false)) {
-    writeRetract(settings.retract.homeXY.onProgramEnd);
-  }
+
+  writeBlock("G53 G0 X1219. Y815.");
+
+  //if (getSetting("retract.homeXY.onProgramEnd", false)) {
+  //  writeRetract(settings.retract.homeXY.onProgramEnd);
+  //}
+
   writeBlock(mFormat.format(30)); // stop program, spindle stop, coolant off
   if (subprogramsAreSupported()) {
     writeSubprograms();
