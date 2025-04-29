@@ -36,13 +36,13 @@
 (debug, Alignment: #<_rc_alignment>)
 
 ; The direction of travel from pocket 1 to pocket 2: 1 = Positive, -1 = Negative.
-#<_rc_direction> = 1
+#<_rc_direction> = -1
 (debug, Direction: #<_rc_direction>)
 
 ; The X an Y machine coordinate positions of pocket 1.
-#<_rc_pocket_one_x> = 0
+#<_rc_pocket_one_x> = 0.2
 (debug, Pocket 1 X: #<_rc_pocket_one_x>)
-#<_rc_pocket_one_y> = -875.50
+#<_rc_pocket_one_y> = -610.30
 (debug, Pocket 1 Y: #<_rc_pocket_one_y>)
 
 ; The Z machine coordinate positon of engagement.
@@ -133,7 +133,7 @@
 ; X and Y machine coordinate positions of the tool setter.
 #<_rc_measure_x> = #<_rc_pocket_one_x>
 (debug, Tool Measure X: #<_rc_measure_x>)
-#<_rc_measure_y> = [#<_rc_pocket_one_y>-45]
+#<_rc_measure_y> = [#<_rc_pocket_one_y>+45]
 (debug, Tool Measure Y: #<_rc_measure_y>)
 
 ; Z machine coordinate position at which to begin the initial probe.
