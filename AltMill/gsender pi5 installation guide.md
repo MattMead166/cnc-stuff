@@ -129,3 +129,16 @@ mode=1920x1080@60000
 position=0,0
 transform = 270
 ```
+
+
+## Removing Voltage warning on Pi 5 when powering from GPIO 
+
+```
+sudo rpi-eeprom-config --edit
+```
+
+Then add the this:
+
+```
+PSU_MAX_CURRENT=5000
+```
