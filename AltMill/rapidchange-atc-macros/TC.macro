@@ -373,8 +373,10 @@ o550 elseif [#<_rc_cover_mode> EQ 2]
   (debug, Dwell for cover)
 o550 endif
 
-; added for AutoDustBoot
-G91 G0 X150
+
+; **** AUTODUSTBOOOT ***********
+G53 G90 G0 X150
+; **** END OF AUTODUSTBOOOT *******
 
 ; Restore units
 G[#<_rc_return_units>]

@@ -175,7 +175,7 @@ o550 elseif [#<_rc_cover_mode> EQ 2]
 o550 endif
 
 ; **** AUTODUSTBOOOT ***********
-G91 G0 X130
+G53 G90 G0 X150
 ; **** END OF AUTODUSTBOOOT *******
 
 ; Restore units

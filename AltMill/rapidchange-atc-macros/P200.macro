@@ -46,7 +46,7 @@
 (debug, Pocket 1 Y: #<_rc_pocket_one_y>)
 
 ; The Z machine coordinate positon of engagement.
-#<_rc_engage_z> = -108
+#<_rc_engage_z> = -100
 (debug, Engage Z: #<_rc_engage_z>)
 
 ; The Z machine coordinate position at which to start the spindle when loading.
@@ -83,7 +83,7 @@
 
 ; Manual Tool Change
 ; X and Y machine coordinates to move to for a manual load/unload.
-#<_rc_manual_x> = 200
+#<_rc_manual_x> = 150
 (debug, Manual X: #<_rc_manual_x>)
 #<_rc_manual_y> = -920
 (debug, Manual Y: #<_rc_manual_y>)
@@ -120,9 +120,9 @@
 
 
 ; Z Machine coordinate positions tool recognition.
-#<_rc_zone_one_z> = -87
+#<_rc_zone_one_z> = [#<_rc_engage_z> + 23]
 (debug, Tool Recognition Zone 1 Z: #<_rc_zone_one_z>)
-#<_rc_zone_two_z> = -82
+#<_rc_zone_two_z> = [#<_rc_engage_z> + 28]
 (debug, Tool Recognition Zone 2 Z: #<_rc_zone_two_z>)
 
 ; Tool Measurement
