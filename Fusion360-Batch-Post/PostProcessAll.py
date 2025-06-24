@@ -885,12 +885,12 @@ def PostProcessSetup(fname, setup, setupFolder, docSettings):
         regToolComment = re.compile(r"\(T[0-9]+\s")
         fFastZenabled = docSettings["fastZ"]
         regBody = re.compile(r""
-            "(?P<N>N[0-9]+ *)?" # line number
-            "(?P<line>"         # line w/o number
-            "(M(?P<M>[0-9]+) *)?" # M-code
-            "(G(?P<G>[0-9]+) *)?" # G-code
-            "(T(?P<T>[0-9]+))?" # Tool
-            ".+)",              # to end of line
+            "(?P<N>N[0-9]+ *)?"         # line number
+            "(?P<line>"                 # line w/o number
+            "(M(?P<M>[0-9]+) *)?"       # M-code
+            "(G(?P<G>[0-9]+) *)?"       # G-code
+            "(T(?P<T>[0-9]+))?"         # Tool
+            ".+)",                      # to end of line
             re.IGNORECASE | re.DOTALL)
         toolChange = docSettings["toolChange"]
         fToolChangeNum = False
@@ -1049,6 +1049,7 @@ def PostProcessSetup(fname, setup, setupFolder, docSettings):
             # Body starts at tool code, T
             fBody = False
             while True:
+
                 match = regBody.match(line).groupdict()
                 line = match["line"]        # filter off line number if present
                 fNum = match["N"] != None
@@ -1057,12 +1058,13 @@ def PostProcessSetup(fname, setup, setupFolder, docSettings):
                 toolCur = match["T"]
                 if (toolCur != None):
                     if len(toolChange) != 0:
-                        processor = post = docSettings["post"].lower();
+                        processor = post = docSettings["post"].lower()
                         if "masso-rapidchangeatc" in processor:
                             fileBody.write("N" + str(lineNum) + " M98 P63" + toolCur)
                         elif "masso" in processor:
                             fileBody.write("N" + str(lineNum) + " " + line.replace('\n', ''))
                         elif "grbl" in processor:
+                            fileBody.write("M65 P0\n")
                             fileBody.write("M6 T" + toolCur)
                             # Add line number to tool change
                         else:
@@ -1071,7 +1073,6 @@ def PostProcessSetup(fname, setup, setupFolder, docSettings):
                         fBody = True
                         line = fileOp.readline()
                         continue    # don't output tool line
-                    toolLast = int(toolCur)
                     break
                 if fFirst or line[0] == "(":
                     if (fNum):
@@ -1208,10 +1209,7 @@ def PostProcessSetup(fname, setup, setupFolder, docSettings):
                         except:
                             fFastZ = False # Just skip changes
 
-                # copy line to output
 
-
-                 # Add Extra G-Code if its Tool Change
                 match = regBody.match(line).groupdict()
                 line = match["line"]        # filter off line number if present
                 fNum = match["N"] != None
@@ -1220,7 +1218,14 @@ def PostProcessSetup(fname, setup, setupFolder, docSettings):
                     if (fNum):
                         fileBody.write("N" + str(lineNum) + " ")
                         lineNum += constLineNumInc
+
                     fileBody.write(line)
+
+                    # Add some custom g-code after spindle start
+                    if (line.startswith("S")):
+                        fileBody.write('M64 P0\n')
+                         # fileBody.write("N10 G4 P5000\n"). # Only needed for Dwelling if required delay
+
                 else:
                     fileBody.write('\n')
 
