@@ -895,13 +895,11 @@ function getCoolantCodes(coolant) {
 
 function onClose() {
 
-
-
-
+  writeBlock("G53 G90 G0 Z-5");
   setCoolant(COOLANT_OFF);
+  writeBlock("M65 P0");
 
   writeRetract(Z);
-
   writeRetract(X, Y);
 
   onImpliedCommand(COMMAND_END);
@@ -913,7 +911,7 @@ function onClose() {
     closeRedirection();
   }
 
-  // writeBlock("G53 G90 G0 Z-5");
+
   // writeBlock("G53 G90 G0 X1200 Y-5");
 
 
