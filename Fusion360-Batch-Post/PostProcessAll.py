@@ -1064,7 +1064,6 @@ def PostProcessSetup(fname, setup, setupFolder, docSettings):
                         elif "masso" in processor:
                             fileBody.write("N" + str(lineNum) + " " + line.replace('\n', ''))
                         elif "grbl" in processor:
-                            fileBody.write("M65 P0\n")
                             fileBody.write("M6 T" + toolCur)
                             # Add line number to tool change
                         else:
@@ -1222,10 +1221,12 @@ def PostProcessSetup(fname, setup, setupFolder, docSettings):
                     fileBody.write(line)
 
                     # Add some custom g-code after spindle start
-                    if (line.startswith("S")):
+                    if (line.startswith("M8")):
                         fileBody.write('M64 P0\n')
-                         # fileBody.write("N10 G4 P5000\n"). # Only needed for Dwelling if required delay
-
+                     
+                    if (line.startswith("M9")):
+                        fileBody.write('M65 P0\n')
+                     
                 else:
                     fileBody.write('\n')
 
