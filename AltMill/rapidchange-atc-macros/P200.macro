@@ -54,7 +54,7 @@
 (debug, Load Spindle Start Z: #<_rc_load_spin_z>)
 
 ; The number of times to plunge when loading.
-#<_rc_plunge_count> = 2
+#<_rc_plunge_count> = 3
 (debug, Load Plunge Count: #<_rc_plunge_count>)
 
 ; The Z machine coordinate position to rise to after unloading, before moving to load.
@@ -70,7 +70,7 @@
 (debug, Safe Clearance Z: #<_rc_safe_z>)
 
 ; The feed rate for engagement.
-#<_rc_engage_feed> = 2000
+#<_rc_engage_feed> = 3500
 (debug, Engage Feed Rate: #<_rc_engage_feed>)
 
 ; Spindle speed CCW

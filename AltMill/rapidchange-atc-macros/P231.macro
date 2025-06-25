@@ -37,8 +37,10 @@ M5
 
 ; ************** AUTODUSTBOOT AUTO-RETRACT ***************
 M8 
+M64 P0
 G4 P0.015
 M9
+M65 P0
 G4 P0.500
 ; ************** END AUTODUSTBOOT AUTO-RETRACT ***************
 (debug, Spindle and coolant turned off)
