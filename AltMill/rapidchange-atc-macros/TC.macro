@@ -51,8 +51,10 @@ M5
 
 ; ***** ENSURE AUTODUSTBOOT IS RECTRACTED
 M8 
+M64 P0
 G4 P0.100
 M9
+M65 P0
 G4 P0.500
 (debug, Retracting AutoDustBoot)
 ; **** 
