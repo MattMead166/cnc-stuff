@@ -1217,16 +1217,7 @@ def PostProcessSetup(fname, setup, setupFolder, docSettings):
                     if (fNum):
                         fileBody.write("N" + str(lineNum) + " ")
                         lineNum += constLineNumInc
-
                     fileBody.write(line)
-
-                    # Add some custom g-code after spindle start
-                    if (line.startswith("M8")):
-                        fileBody.write('M64 P0\n')
-                     
-                    if (line.startswith("M9")):
-                        fileBody.write('M65 P0\n')
-                     
                 else:
                     fileBody.write('\n')
 

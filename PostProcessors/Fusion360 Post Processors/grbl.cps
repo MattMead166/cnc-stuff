@@ -897,7 +897,6 @@ function onClose() {
 
   writeBlock("G53 G90 G0 Z-5");
   setCoolant(COOLANT_OFF);
-  writeBlock("M65 P0");
 
   writeRetract(Z);
   writeRetract(X, Y);
