@@ -46,6 +46,11 @@ o100 endif
 
 ; ************** BEGIN SETUP ***************
 ; Turn off spindle and coolant
+
+M356 P0 Q1
+M150 R255 U0 B255
+G4 P0.2
+
 M5
 
 
@@ -379,6 +384,11 @@ o550 endif
 ; **** AUTODUSTBOOOT ***********
 G53 G90 G0 X150
 ; **** END OF AUTODUSTBOOOT *******
+
+G4 P0.1
+M150 R255 U255 B255
+M356 P0 Q0
+
 
 ; Restore units
 G[#<_rc_return_units>]
