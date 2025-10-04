@@ -51,6 +51,7 @@ M356 P0 Q1
 M150 R255 U0 B255
 G4 P0.2
 
+G65P6
 M5
 
 
@@ -142,6 +143,7 @@ o300 else
   (debug, Move to pocket #<_current_tool>)
   G53 G0 Z[#<_rc_engage_z> + #<_rc_z_spin_off>]
   (debug, Move to spin start)
+  G65P6
   M4 S[#<_rc_unload_rpm>]
   (debug, Run spindle CCW)
   G53 G1 Z[#<_rc_engage_z>] F[#<_rc_engage_feed>]
@@ -163,6 +165,7 @@ o300 else
       (debug, Engage)
       G53 G1 Z[#<_rc_engage_z> + #<_rc_z_retreat_off>] F[#<_rc_engage_feed>]
       (debug, Retreat)
+      G65P6
       M5
       G53 G0 Z[#<_rc_zone_one_z>]
       (debug, Move to zone 1)
@@ -182,11 +185,13 @@ o300 else
         (debug, Go to move to load)
       o330 endif
     o320 else
+      G65P6
       M5
       G53 G0 Z[#<_rc_to_load_z>]
       (debug, Go to move to load)
     o320 endif
   o310 else
+    G65P6
     M5
     (debug, Stop spindle)
     G53 G0 Z[#<_rc_to_load_z>]
@@ -215,6 +220,7 @@ o400 elseif [#<_tool_to_load> LE #<_rc_pockets>]
   G53 G0 Z[#<_rc_engage_z> + #<_rc_z_spin_off>]
   (debug, Move to spin start)
   G53 G1 Z[#<_rc_load_spin_z>] F[#<_rc_engage_feed>]
+  G65P6
   M3 S[#<_rc_load_rpm>]
   (debug, Run spindle CW)
 
@@ -228,6 +234,7 @@ o400 elseif [#<_tool_to_load> LE #<_rc_pockets>]
     (debug, Load plunge #<_rc_times_plunged> complete)
   o410 endwhile
 
+  G65P6
   M5
   (debug, Stop spindle)
 
