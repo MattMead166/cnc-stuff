@@ -17,6 +17,7 @@
 ; If not, see <https://www.gnu.org/licenses/>.
 ;
 
+
 ; ******** BEGIN USER CONFIGURATION ********
 ; ATC Operations
 ; The units for your configuration: 20 = Inches, 21 = Millimeters
@@ -40,9 +41,9 @@
 (debug, Direction: #<_rc_direction>)
 
 ; The X an Y machine coordinate positions of pocket 1.
-#<_rc_pocket_one_x> = 0.2
+#<_rc_pocket_one_x> = 0.8
 (debug, Pocket 1 X: #<_rc_pocket_one_x>)
-#<_rc_pocket_one_y> = -610.30
+#<_rc_pocket_one_y> = -610.60
 (debug, Pocket 1 Y: #<_rc_pocket_one_y>)
 
 ; The Z machine coordinate positon of engagement.
